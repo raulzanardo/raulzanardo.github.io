@@ -120,7 +120,7 @@ export const blogPosts = [
   {
     id: 'xserver-screen',
     slug: 'xserver-screen',
-    title: 'X Server Screen to LED Matrix',
+    title: 'XServer Screen to LED Matrix',
     date: '2025-07-26',
     excerpt: 'Display any X11 application on an RGB LED matrix in real-time.',
     image: 'https://raw.githubusercontent.com/raulzanardo/xserver-screen/master/images/doom.png',
