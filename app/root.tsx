@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigate,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -43,6 +44,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    // Handle GitHub Pages 404 redirects for client-side routing
+    const handleRedirect = () => {
+      const l = window.location;
+      if (l.search && l.search[0] === "?") {
+        const path = l.search.slice(1);
+        if (path) {
+          // Remove the leading slash if present and decode
+          const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+          const decodedPath = cleanPath.replace(/~and~/g, "&");
+          navigate("/" + decodedPath, { replace: true });
+        }
+      }
+    };
+
+    handleRedirect();
+  }, [navigate]);
+
   const [isDark, setIsDark] = React.useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
