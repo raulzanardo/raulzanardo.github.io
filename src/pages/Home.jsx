@@ -29,6 +29,31 @@ export default function Home({ isDark }) {
             performance, and code quality.
           </p>
         </div>
+        <div>
+          <h3 className={`text-sm font-semibold ${textColor} mt-2`}>
+            Portfolios
+          </h3>
+          <p className={subtleColor}>
+            <a
+              href="https://raulzanardo.github.io/curriculo-flutter/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${linkColor} hover:underline`}
+            >
+              Flutter portfolio
+            </a>
+          </p>
+          <p className={subtleColor}>
+            <a
+              href="https://raulzanardo.github.io/curriculo-react/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${linkColor} hover:underline`}
+            >
+              React portfolio
+            </a>
+          </p>
+        </div>
 
         <div>
           <h2 className={`text-lg font-bold ${textColor}`}>Contact</h2>
@@ -61,6 +86,7 @@ export default function Home({ isDark }) {
                 linkedin.com/in/raulzanardo
               </a>
             </p>
+
             <img
               src="https://raw.githubusercontent.com/raulzanardo/curriculo-flutter/master/build/web/assets/assets/images/photo.png"
               alt="Raul Zanardo"
