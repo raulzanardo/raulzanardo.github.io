@@ -194,7 +194,7 @@ export default function BlogPost() {
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full max-h-96 object-cover rounded-lg mb-8"
+                className="w-full  object-cover rounded-lg mb-8"
                 onError={(e: any) => {
                   e.currentTarget.style.display = "none";
                 }}
