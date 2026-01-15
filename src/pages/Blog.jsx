@@ -19,7 +19,7 @@ export default function Blog({ isDark }) {
       <div>
         <h1 className={textColor}>Blog</h1>
         <p className={subtleColor}>
-          Thoughts, projects, and learnings about software development
+          Thoughts, projects, and learnings about software and hardware development
         </p>
       </div>
 

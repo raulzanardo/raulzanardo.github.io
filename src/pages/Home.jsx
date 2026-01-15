@@ -10,7 +10,7 @@ export default function Home({ isDark }) {
       <div>
         <h1 className={textColor}>Raul Zanardo</h1>
         <p className={subtleColor}>
-          Developer & Engineer — Building digital products with React, Flutter, and modern web technologies.
+          Developer & Engineer — Building digital products with React, Flutter, and playing arround with hardware and interactive devices.
         </p>
       </div>
 
