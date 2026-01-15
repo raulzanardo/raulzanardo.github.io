@@ -1,14 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 
-Header.propTypes = {
-  isDark: PropTypes.bool.isRequired,
-  setIsDark: PropTypes.func.isRequired,
-};
-
-export default function Header({ isDark, setIsDark }) {
+export default function Header({
+  isDark,
+  setIsDark,
+}: {
+  isDark: boolean;
+  setIsDark: (isDark: boolean) => void;
+}) {
   const location = useLocation();
+  const navigate = useNavigate();
   const tabs = ["Home", "Blog"];
   const paths = ["/", "/blog"];
 
@@ -72,9 +73,9 @@ export default function Header({ isDark, setIsDark }) {
         <div className="flex items-center justify-between h-16">
           <div className="flex space-x-1">
             {tabs.map((tab, index) => (
-              <Link
+              <button
                 key={tab}
-                to={paths[index]}
+                onClick={() => navigate(paths[index])}
                 className={`px-4 py-2 text-sm font-medium transition-colors ${
                   activeTab === index
                     ? `${
@@ -90,14 +91,15 @@ export default function Header({ isDark, setIsDark }) {
                 }`}
               >
                 {tab}
-              </Link>
+              </button>
             ))}
           </div>
 
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-full transition-colors"
+              className={`p-2 rounded-full ${isDark ? "hover:bg-surface-dark" : "hover:bg-surface"}`}
+              title="Toggle theme"
               style={{
                 backgroundColor: isDark ? "transparent" : "transparent",
               }}
@@ -109,7 +111,6 @@ export default function Header({ isDark, setIsDark }) {
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
               }}
-              title="Toggle theme"
             >
               {isDark ? <Moon /> : <Sun />}
             </button>

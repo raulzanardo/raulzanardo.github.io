@@ -1,15 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Accent color */
+  --color-primary: #ff9800; /* Orange */
+  --color-primary-dark: #bb86fc; /* Dark mode primary fallback */
+
+  /* Light theme: pure white background and surfaces */
+  --color-background: #ffffff; /* Pure white background for light theme */
+  --color-surface: #ffffff; /* Surface same as background (white) */
+
+  /* Dark theme (unchanged) */
+  --color-background-dark: #121212;
+  --color-surface-dark: #1e1e1e;
+
+  /* Text colors */
+  --color-text-primary: #000000; /* Black text for light mode */
+  --color-text-primary-dark: #ffffff; /* White text for dark mode */
+  --color-text-secondary: #666666;
+  --color-text-secondary-dark: #cccccc;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  /* Use CSS variables for background and text so Tailwind utilities can map to them */
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+
+  /* Dark mode overrides */
+  .dark & {
+    background-color: var(--color-background_dark);
+    color: var(--color-text-primary-dark);
+  }
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* Utility aliases for components that reference background/surface */
+:root {
+  --bg: var(--color-background);
+  --surface: var(--color-surface);
+}
+
+.dark :root {
+  --bg: var(--color-background-dark);
+  --surface: var(--color-surface-dark);
 }
