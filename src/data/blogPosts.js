@@ -7,11 +7,10 @@ export const blogPosts = [
     title: 'Raspberry Pi Spotify Matrix Display',
     date: '2026-01-14',
     excerpt: 'Large-format LED matrix display showing Spotify now-playing info on a Raspberry Pi.',
-    image: 'https://raw.githubusercontent.com/raulzanardo/my-led-matrix/master/images/full_build.png',
+    image: 'https://raw.githubusercontent.com/raulzanardo/rpi-spotify-matrix-display-big/master/images/example.png',
     images: [
-      'https://raw.githubusercontent.com/raulzanardo/my-led-matrix/master/images/full_build.png',
-      'https://raw.githubusercontent.com/raulzanardo/my-led-matrix/master/images/led_panel_vendor.png',
-      'https://raw.githubusercontent.com/raulzanardo/my-led-matrix/master/images/hub75_hat.png'
+
+
     ],
     tags: ['Raspberry Pi', 'Spotify', 'LED Matrix', 'Python'],
     github: 'https://github.com/raulzanardo/rpi-spotify-matrix-display-big',
