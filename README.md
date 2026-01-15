@@ -1,87 +1,115 @@
-# Welcome to React Router!
+# Raul Zanardo — Portfolio & Blog
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A modern, responsive website built with React and Vite, featuring a clean design with light/dark theme support.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+[View Live Site](https://raulzanardo.github.io)
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 🎨 Clean, modern UI with light/dark theme
+- 📱 Fully responsive design
+- ⚡️ Fast performance with Vite
+- 🚀 Automated deployment to GitHub Pages
+- 🎯 Simple navigation between Home and Blog sections
 
-## Getting Started
+## Local Development
+
+### Prerequisites
+
+- Node.js 18 or higher
+- npm or yarn
 
 ### Installation
-
-Install the dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
-
-Start the development server with HMR:
+### Development Server
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Open [http://localhost:5173](http://localhost:5173) to view in browser.
 
-## Building for Production
-
-Create a production build:
+### Build for Production
 
 ```bash
 npm run build
 ```
 
+The build output will be in the `dist/` directory.
+
 ## Deployment
 
-### Docker Deployment
+This site automatically deploys to GitHub Pages via GitHub Actions:
 
-To build and run using Docker:
+1. Push changes to the `main` branch
+2. GitHub Actions workflow builds the site
+3. Deploys to `gh-pages` branch
+4. Site is live at `https://raulzanardo.github.io`
 
-```bash
-docker build -t my-app .
+### GitHub Pages Configuration
 
-# Run the container
-docker run -p 3000:3000 my-app
+Ensure your repository settings have:
+
+- **Settings → Pages → Source**: Deploy from a branch
+- **Branch**: `gh-pages` / `root`
+
+## Tech Stack
+
+- **Framework**: React 18
+- **Build Tool**: Vite 5
+- **Routing**: React Router 6
+- **Styling**: Custom CSS with CSS variables for theming
+- **Font**: Roboto (Google Fonts)
+- **Deployment**: GitHub Pages via GitHub Actions
+
+## Project Structure
+
+```
+├── .github/
+│   └── workflows/
+│       └── gh-pages.yml    # GitHub Actions deployment
+├── src/
+│   ├── components/
+│   │   └── Header.jsx      # Navigation header with theme toggle
+│   ├── pages/
+│   │   ├── Home.jsx        # Home page
+│   │   └── Blog.jsx        # Blog page
+│   ├── App.jsx             # Main app component
+│   ├── app.css             # Global styles and theme
+│   └── main.jsx            # Entry point
+├── index.html              # HTML template
+├── vite.config.js          # Vite configuration
+└── package.json            # Dependencies and scripts
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## Customization
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+### Theme Colors
 
-### DIY Deployment
+Edit CSS variables in `src/app.css`:
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```css
+:root {
+  --color-primary: #ff9800; /* Orange accent */
+  --color-primary-dark: #bb86fc; /* Purple accent (dark mode) */
+  --color-background: #ffffff; /* Light background */
+  --color-background-dark: #121212; /* Dark background */
+  /* ... more variables */
+}
 ```
 
-## Styling
+### Adding Blog Posts
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+Edit the `posts` array in `src/pages/Blog.jsx` to add new blog entries.
+
+## License
+
+MIT
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ using React and Vite
