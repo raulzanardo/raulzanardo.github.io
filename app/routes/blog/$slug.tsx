@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link, useOutletContext } from "react-router";
 import { blogPosts, type BlogPost } from "../../data/blogPosts.js";
 import type { ThemeContext } from "../../types/context";
@@ -7,6 +7,30 @@ import Header from "../../components/Header";
 export default function BlogPost() {
   const { slug } = useParams();
   const { isDark, setIsDark } = useOutletContext<ThemeContext>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isModalOpen) {
+        setIsModalOpen(false);
+        setSelectedImage(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isModalOpen]);
+
+  const openModal = (imageSrc: string) => {
+    setSelectedImage(imageSrc);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
 
   const post = blogPosts.find((p: BlogPost) => p.slug === slug);
   if (!post) {
@@ -196,7 +220,8 @@ export default function BlogPost() {
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full  object-cover rounded-lg mb-8"
+                className="w-full object-cover rounded-lg mb-8 cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => openModal(post.image!)}
                 onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                   e.currentTarget.style.display = "none";
                 }}
@@ -215,7 +240,8 @@ export default function BlogPost() {
                   key={i}
                   src={imgUrl}
                   alt={`${post.title} - image ${i + 1}`}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => openModal(imgUrl)}
                   onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                     e.currentTarget.style.display = "none";
                   }}
@@ -225,6 +251,29 @@ export default function BlogPost() {
           )}
         </article>
       </div>
+
+      {/* Image Modal */}
+      {isModalOpen && selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50"
+          onClick={closeModal}
+        >
+          <div className="relative max-w-4xl max-h-full">
+            <img
+              src={selectedImage}
+              alt="Modal"
+              className="max-w-full max-h-full object-contain"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image
+            />
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-white bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-75 transition-opacity"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
