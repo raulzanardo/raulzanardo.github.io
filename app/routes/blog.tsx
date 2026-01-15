@@ -1,9 +1,10 @@
 import { Link, useOutletContext } from "react-router";
 import { blogPosts, type BlogPost } from "../data/blogPosts.js";
+import type { ThemeContext } from "../types/context";
 import Header from "../components/Header";
 
 export default function Blog() {
-  const { isDark, setIsDark }: any = useOutletContext();
+  const { isDark, setIsDark } = useOutletContext<ThemeContext>();
 
   const textColor = isDark ? "text-text-primary-dark" : "text-text-primary";
   const subtleColor = isDark

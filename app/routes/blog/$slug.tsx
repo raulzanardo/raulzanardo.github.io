@@ -1,10 +1,12 @@
+import React from "react";
 import { useParams, Link, useOutletContext } from "react-router";
 import { blogPosts, type BlogPost } from "../../data/blogPosts.js";
+import type { ThemeContext } from "../../types/context";
 import Header from "../../components/Header";
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const { isDark, setIsDark }: any = useOutletContext();
+  const { isDark, setIsDark } = useOutletContext<ThemeContext>();
 
   const post = blogPosts.find((p: BlogPost) => p.slug === slug);
   if (!post) {
@@ -31,7 +33,7 @@ export default function BlogPost() {
 
   const renderContent = (content: string) => {
     const lines = content.trim().split("\n");
-    const elements: any[] = [];
+    const elements: React.ReactElement[] = [];
     let inCodeBlock = false;
     let codeBlockLines: string[] = [];
 
@@ -96,7 +98,7 @@ export default function BlogPost() {
         );
       } else if (line.includes("[") && line.includes("](")) {
         const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-        const parts: any[] = [];
+        const parts: (string | React.ReactElement)[] = [];
         let lastIndex = 0;
         let match: RegExpExecArray | null;
         while ((match = linkRegex.exec(line)) !== null) {
@@ -195,7 +197,7 @@ export default function BlogPost() {
                 src={post.image}
                 alt={post.title}
                 className="w-full  object-cover rounded-lg mb-8"
-                onError={(e: any) => {
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                   e.currentTarget.style.display = "none";
                 }}
               />
@@ -214,7 +216,7 @@ export default function BlogPost() {
                   src={imgUrl}
                   alt={`${post.title} - image ${i + 1}`}
                   className="w-full h-48 object-cover rounded-lg"
-                  onError={(e: any) => {
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                     e.currentTarget.style.display = "none";
                   }}
                 />

@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router";
 import type { Route } from "./+types/home";
+import type { ThemeContext } from "../types/context";
 import Header from "../components/Header";
 
 export function meta({}: Route.MetaArgs) {
@@ -14,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { isDark, setIsDark }: any = useOutletContext();
+  const { isDark, setIsDark } = useOutletContext<ThemeContext>();
 
   const textColor = isDark ? "text-text-primary-dark" : "text-text-primary";
   const subtleColor = isDark
@@ -114,8 +115,8 @@ export default function Home() {
                   src="https://raw.githubusercontent.com/raulzanardo/curriculo-flutter/master/build/web/assets/assets/images/photo.png"
                   alt="Raul Zanardo"
                   className="w-full object-cover rounded-lg mb-8"
-                  onError={(e: any) => {
-                    e.target.style.display = "none";
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                    e.currentTarget.style.display = "none";
                   }}
                 />
               </div>
