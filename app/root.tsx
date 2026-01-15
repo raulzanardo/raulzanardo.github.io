@@ -27,19 +27,13 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <Meta />
+      <Links />
+      {children}
+      <ScrollRestoration />
+      <Scripts />
+    </>
   );
 }
 
@@ -49,15 +43,19 @@ export default function App() {
   React.useEffect(() => {
     // Handle GitHub Pages 404 redirects for client-side routing
     const handleRedirect = () => {
-      const l = window.location;
-      if (l.search && l.search[0] === "?") {
-        const path = l.search.slice(1);
-        if (path) {
-          // Remove the leading slash if present and decode
-          const cleanPath = path.startsWith("/") ? path.slice(1) : path;
-          const decodedPath = cleanPath.replace(/~and~/g, "&");
-          navigate("/" + decodedPath, { replace: true });
+      try {
+        const l = window.location;
+        if (l.search && l.search[0] === "?") {
+          const path = l.search.slice(1);
+          if (path) {
+            // Remove the leading slash if present and decode
+            const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+            const decodedPath = cleanPath.replace(/~and~/g, "&");
+            navigate("/" + decodedPath, { replace: true });
+          }
         }
+      } catch (error) {
+        console.warn("Error handling redirect:", error);
       }
     };
 
@@ -65,26 +63,48 @@ export default function App() {
   }, [navigate]);
 
   const [isDark, setIsDark] = React.useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("theme");
-      if (saved) return saved === "dark";
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    try {
+      if (typeof window !== "undefined") {
+        const saved = localStorage.getItem("theme");
+        if (saved) return saved === "dark";
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
+    } catch (error) {
+      console.warn("Error initializing theme:", error);
     }
     return false;
   });
 
   React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      if (isDark) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        if (isDark) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
       }
+    } catch (error) {
+      console.warn("Error setting theme:", error);
     }
   }, [isDark]);
 
-  return <Outlet context={{ isDark, setIsDark }} />;
+  return (
+    <Layout>
+      <Outlet context={{ isDark, setIsDark }} />
+    </Layout>
+  );
+}
+
+export function HydrateFallback() {
+  return (
+    <Layout>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-text-primary">Loading...</div>
+      </div>
+    </Layout>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
