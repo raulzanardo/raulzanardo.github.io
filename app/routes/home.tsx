@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div
       className={`min-h-screen ${
-        isDark ? "dark bg-background-dark" : "bg-gray-200"
+        isDark ? "dark bg-background-dark" : "bg-background"
       }`}
     >
       <Header isDark={isDark} setIsDark={setIsDark} />
