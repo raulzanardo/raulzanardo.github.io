@@ -10,7 +10,7 @@ export default function Blog() {
   const subtleColor = isDark
     ? "text-text-secondary-dark"
     : "text-text-secondary";
-  const bgColor = isDark ? "bg-surface-dark" : "bg-surface";
+  const bgColor = isDark ? "bg-surface-dark" : "bg-gray-200";
   const borderColor = isDark ? "border-surface-dark" : "border-surface";
   const accentColor = isDark ? "text-primary-dark" : "text-primary";
 
