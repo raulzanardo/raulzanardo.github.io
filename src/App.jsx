@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(0)
@@ -36,6 +37,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home isDark={isDark} />} />
             <Route path="/blog" element={<Blog isDark={isDark} />} />
+            <Route path="/blog/:slug" element={<BlogPost isDark={isDark} />} />
           </Routes>
         </div>
       </div>

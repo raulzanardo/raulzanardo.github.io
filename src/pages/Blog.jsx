@@ -1,42 +1,83 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import { blogPosts } from "../data/blogPosts";
 
 export default function Blog({ isDark }) {
-  const textColor = isDark ? 'text-text-primary-dark' : 'text-text-primary'
-  const subtleColor = isDark ? 'text-text-secondary-dark' : 'text-text-secondary'
-  const bgColor = isDark ? 'bg-surface-dark' : 'bg-surface'
-  const borderColor = isDark ? 'border-surface-dark' : 'border-surface'
-
-  const posts = [
-    {
-      title: 'Getting Started',
-      date: 'January 15, 2026',
-      excerpt: 'Welcome to my blog! This is where I share thoughts on development, design, and technology.',
-    },
-  ]
+  const textColor = isDark ? "text-text-primary-dark" : "text-text-primary";
+  const subtleColor = isDark
+    ? "text-text-secondary-dark"
+    : "text-text-secondary";
+  const bgColor = isDark ? "bg-surface-dark" : "bg-surface";
+  const borderColor = isDark ? "border-surface-dark" : "border-surface";
+  const accentColor = isDark ? "text-primary-dark" : "text-primary";
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className={textColor}>Blog</h1>
         <p className={subtleColor}>
-          Thoughts, projects, and learnings about software and hardware development
+          Projects, experiments, and technical write-ups
         </p>
       </div>
 
-      <div className="space-y-4">
-        {posts.map((post, index) => (
-          <div
-            key={index}
-            className={`${bgColor} border ${borderColor} rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer`}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogPosts.map((post) => (
+          <Link
+            key={post.id}
+            to={`/blog/${post.slug}`}
+            className="no-underline"
           >
-            <h2 className={`text-lg font-bold ${textColor} mb-2`}>
-              {post.title}
-            </h2>
-            <p className={`text-sm ${subtleColor} mb-3`}>{post.date}</p>
-            <p className={subtleColor}>{post.excerpt}</p>
-          </div>
+            <div
+              className={`${bgColor} border ${borderColor} rounded-lg overflow-hidden hover:shadow-xl transition-all duration-200 cursor-pointer h-full flex flex-col p-4`}
+              style={{
+                transform: "translateY(0)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              {/* Post content */}
+              <div className="p-6 flex-1 flex flex-col">
+                <h2
+                  className={`text-xl font-bold ${accentColor} mb-2 leading-tight`}
+                >
+                  {post.title}
+                </h2>
+                <div
+                  className={`flex gap-3 items-center mb-3 text-sm ${subtleColor}`}
+                >
+                  <time>
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                </div>{" "}
+                {/* Post image */}
+                {post.image && (
+                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.parentElement.style.display = "none";
+                      }}
+                    />
+                  </div>
+                )}
+                <p className={`${subtleColor} mb-4 flex-1 line-clamp-3`}>
+                  {post.excerpt}
+                </p>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
-  )
+  );
 }
