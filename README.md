@@ -1,23 +1,24 @@
 # Raul Zanardo — Portfolio & Blog
 
-A modern, responsive website built with React and Vite, featuring a clean design with light/dark theme support.
+A modern, responsive website built with React Router 7, featuring a clean design with light/dark theme support.
 
 [View Live Site](https://raulzanardo.github.io)
 
 ## Features
 
-- 🎨 Clean, modern UI with light/dark theme
-- 📱 Fully responsive design
-- ⚡️ Fast performance with Vite
-- 🚀 Automated deployment to GitHub Pages
-- 🎯 Simple navigation between Home and Blog sections
+- Clean, modern UI with light/dark theme
+- Fully responsive design
+- Fast performance with Vite and React Router 7
+- Automated deployment to GitHub Pages
+- File-based routing system
+- TypeScript support
 
 ## Local Development
 
 ### Prerequisites
 
-- Node.js 18 or higher
-- npm or yarn
+- Node.js 20 or higher
+- npm
 
 ### Installation
 
@@ -39,7 +40,7 @@ Open [http://localhost:5173](http://localhost:5173) to view in browser.
 npm run build
 ```
 
-The build output will be in the `dist/` directory.
+The build output will be in the `build/client/` directory.
 
 ## Deployment
 
@@ -59,10 +60,11 @@ Ensure your repository settings have:
 
 ## Tech Stack
 
-- **Framework**: React 18
-- **Build Tool**: Vite 5
-- **Routing**: React Router 6
-- **Styling**: Custom CSS with CSS variables for theming
+- **Framework**: React 19
+- **Build Tool**: Vite 7
+- **Routing**: React Router 7 (file-based routing)
+- **Styling**: Tailwind CSS 4
+- **TypeScript**: Type-safe development
 - **Font**: Roboto (Google Fonts)
 - **Deployment**: GitHub Pages via GitHub Actions
 
@@ -71,26 +73,33 @@ Ensure your repository settings have:
 ```
 ├── .github/
 │   └── workflows/
-│       └── gh-pages.yml    # GitHub Actions deployment
-├── src/
+│       └── gh-pages.yml         # GitHub Actions deployment
+├── app/
 │   ├── components/
-│   │   └── Header.jsx      # Navigation header with theme toggle
-│   ├── pages/
-│   │   ├── Home.jsx        # Home page
-│   │   └── Blog.jsx        # Blog page
-│   ├── App.jsx             # Main app component
-│   ├── app.css             # Global styles and theme
-│   └── main.jsx            # Entry point
-├── index.html              # HTML template
-├── vite.config.js          # Vite configuration
-└── package.json            # Dependencies and scripts
+│   │   └── Header.tsx           # Navigation header with theme toggle
+│   ├── data/
+│   │   └── blogPosts.ts         # Blog posts data
+│   ├── routes/
+│   │   ├── home.tsx             # Home page route
+│   │   ├── blog.tsx             # Blog listing route
+│   │   └── blog/$slug.tsx       # Individual blog post route
+│   ├── types/
+│   │   └── context.ts           # TypeScript type definitions
+│   ├── app.css                  # Global styles and theme
+│   └── root.tsx                 # Root layout with theme management
+├── public/
+│   └── favicon.ico              # Site favicon
+├── build/client/                # Production build output
+├── react-router.config.ts       # React Router configuration
+├── vite.config.ts               # Vite configuration
+└── package.json                 # Dependencies and scripts
 ```
 
 ## Customization
 
 ### Theme Colors
 
-Edit CSS variables in `src/app.css`:
+Edit CSS variables in `app/app.css`:
 
 ```css
 :root {
@@ -104,7 +113,14 @@ Edit CSS variables in `src/app.css`:
 
 ### Adding Blog Posts
 
-Edit the `posts` array in `src/pages/Blog.jsx` to add new blog entries.
+Edit the `blogPosts` array in `app/data/blogPosts.ts` to add new blog entries. Each post follows the `BlogPost` interface with fields for title, content, images, and metadata.
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Preview production build
+- `npm run typecheck` - Run TypeScript type checking
 
 ## License
 
@@ -112,4 +128,4 @@ MIT
 
 ---
 
-Built with ❤️ using React and Vite
+Built using React and Vite
