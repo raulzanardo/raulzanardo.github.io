@@ -1,4 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+Home.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};
 
 export default function Home({ isDark }) {
   const textColor = isDark ? "text-text-primary-dark" : "text-text-primary";

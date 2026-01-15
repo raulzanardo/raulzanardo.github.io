@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+import PropTypes from "prop-types";
+
+Blog.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};
 
 export default function Blog({ isDark }) {
   const textColor = isDark ? "text-text-primary-dark" : "text-text-primary";

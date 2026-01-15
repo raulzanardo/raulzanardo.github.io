@@ -1,5 +1,12 @@
+import React from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+
+import PropTypes from "prop-types";
+
+BlogPost.propTypes = {
+  isDark: PropTypes.bool.isRequired,
+};
 
 function BlogPost({ isDark }) {
   const { slug } = useParams();
@@ -22,14 +29,12 @@ function BlogPost({ isDark }) {
     const elements = [];
     let inCodeBlock = false;
     let codeBlockLines = [];
-    let codeBlockLanguage = "";
 
     lines.forEach((line, idx) => {
       // Code block handling
       if (line.startsWith("```")) {
         if (!inCodeBlock) {
           inCodeBlock = true;
-          codeBlockLanguage = line.slice(3).trim();
           codeBlockLines = [];
         } else {
           inCodeBlock = false;
