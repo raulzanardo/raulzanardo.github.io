@@ -134,6 +134,6 @@ export const blogPosts = [
     tags: ["Raspberry Pi", "LED Matrix", "X11", "C++", "Retro Gaming"],
     github: "https://github.com/raulzanardo/xserver-screen",
     content:
-      "Capture and render any X11 application to an RGB LED matrix display in real-time. Uses Xvfb virtual framebuffer to create a virtual display that gets captured and sent to HUB75 LED panels. Perfect for retro gaming (DOOM, Quake, Celeste), dashboards, or any graphical application. Based on pico8-led but generalized for any X application.",
+      "Capture and render any X11 application to an RGB LED matrix display in real-time. Uses Xvfb virtual framebuffer to create a virtual display that gets captured and sent to HUB75 LED panels. Perfect for retro gaming (DOOM, Quake, Celeste, Half Life 1), dashboards, or any graphical application. Based on pico8-led but generalized for any X application.",
   },
 ];
