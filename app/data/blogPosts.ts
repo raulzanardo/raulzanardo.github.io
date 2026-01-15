@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Raspberry Pi", "Spotify", "LED Matrix", "Python"],
     github: "https://github.com/raulzanardo/rpi-spotify-matrix-display-big",
     content:
-      "A fork of a Spotify display project adapted for a large 192x128 HUB75 LED matrix panel. Displays currently playing track information, album artwork, and dynamic visualizations synchronized with your Spotify account. Built with Python using the Spotify Web API and the rpi-rgb-led-matrix library.",
+      "A fork of a Spotify display project adapted for a large 192x128 HUB75 LED matrix panel. Displays currently playing track information, album artwork, dynamic visualizations synchronized with your Spotify account and clock. Built with Python using the Spotify Web API and the rpi-rgb-led-matrix library.",
   },
   {
     id: "my-led-matrix",
