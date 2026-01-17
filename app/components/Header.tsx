@@ -10,8 +10,8 @@ export default function Header({
 }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const tabs = ["Home", "Blog"];
-  const paths = ["/", "/blog"];
+  const tabs = ["Home", "Blog", "Music"];
+  const paths = ["/", "/blog", "/music"];
 
   const activeTab = paths.indexOf(location.pathname);
 

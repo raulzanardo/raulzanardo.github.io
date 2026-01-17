@@ -36,9 +36,9 @@ export default function Home() {
             <div>
               <h1 className={textColor}>Raul Zanardo</h1>
               <p className={subtleColor}>
-                Developer & Engineer — Building digital products with React,
-                Flutter, and playing arround with hardware and interactive
-                devices.
+                Developer, Engineer & Musician — Building digital products with
+                React, Flutter, and playing arround with hardware and
+                interactive devices.
               </p>
             </div>
           </div>
