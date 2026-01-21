@@ -97,9 +97,9 @@ export default function Music() {
             <section>
               <h2 className={`text-lg font-bold ${textColor}`}>Dum Brothers</h2>
               <p className={`${subtleColor} leading-relaxed mt-2`}>
-                Dum Brothers is a São Paulo rock/power-duo featuring Raul
-                Zanardo on guitar and vocals. The band has released EPs and
-                singles on Bandcamp and SoundCloud.
+                Dum Brothers begin as rock/power-duo featuring Raul Zanardo on
+                guitar and vocals and Bruno Agnolett on drums. The band has
+                released EPs and singles on Bandcamp and SoundCloud.
               </p>
 
               <div className="mt-3 space-y-2">
