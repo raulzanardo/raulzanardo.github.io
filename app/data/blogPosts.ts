@@ -46,7 +46,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["LED Matrix", "HUB75", "Raspberry Pi", "Hardware"],
     github: "https://github.com/raulzanardo/my-led-matrix",
     content:
-      "A collection of utilities, demos, and documentation for working with HUB75 RGB LED matrix panels. Includes hardware setup guides, wiring diagrams, and example code for driving large LED displays from Raspberry Pi and other single-board computers.",
+      "A collection of files, demos, and documentation for working with HUB75 RGB LED matrix panels. Includes hardware setup guides, wiring diagrams, and example code for driving large LED displays from Raspberry Pi and other single-board computers.",
   },
   {
     id: "curriculo-react",
