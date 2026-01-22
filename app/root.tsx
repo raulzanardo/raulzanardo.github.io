@@ -48,11 +48,13 @@ export default function App() {
         const l = window.location;
         if (l.search && l.search[0] === "?") {
           const path = l.search.slice(1);
-          if (path) {
-            // Remove the leading slash if present and decode
-            const cleanPath = path.startsWith("/") ? path.slice(1) : path;
-            const decodedPath = cleanPath.replace(/~and~/g, "&");
-            navigate("/" + decodedPath, { replace: true });
+          if (path && path.startsWith("/")) {
+            // Extract the path after the /?/
+            const actualPath = path.slice(1);
+            if (actualPath) {
+              const decodedPath = actualPath.replace(/~and~/g, "&");
+              navigate("/" + decodedPath, { replace: true });
+            }
           }
         }
       } catch (error) {
