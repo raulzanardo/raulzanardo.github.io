@@ -72,8 +72,6 @@ export const blogPosts: BlogPost[] = [
     images: [],
     tags: ["LibreTiny", "OTA", "Microcontroller", "C++", "IoT"],
     github: "https://github.com/raulzanardo/libretiny-pio-ota",
-    stars: 0,
-    language: "C++",
     content:
       "Lightweight OTA (Over-The-Air) update infrastructure for LibreTiny-based IoT devices. Enables remote firmware updates with minimal bootloader overhead, checksum verification for security, and easy integration into existing projects using PlatformIO.",
   },
