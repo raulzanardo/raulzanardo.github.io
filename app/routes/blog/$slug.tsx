@@ -3,6 +3,9 @@ import { useParams, Link, useOutletContext } from "react-router";
 import { blogPosts, type BlogPost } from "../../data/blogPosts.js";
 import type { ThemeContext } from "../../types/context";
 import Header from "../../components/Header";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -33,6 +36,83 @@ export default function BlogPost() {
   };
 
   const post = blogPosts.find((p: BlogPost) => p.slug === slug);
+  const [readme, setReadme] = useState<string | null>(null);
+  const [readmeLoading, setReadmeLoading] = useState(false);
+  const [readmeError, setReadmeError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const githubUrl = post?.github;
+    if (!post || !githubUrl) return;
+    let canceled = false;
+    const fetchReadme = async () => {
+      setReadmeLoading(true);
+      setReadmeError(null);
+      const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+      if (!match) {
+        setReadmeError("Invalid GitHub URL");
+        setReadmeLoading(false);
+        return;
+      }
+      const owner = match[1];
+      const repo = match[2];
+      const branches = ["master", "main"];
+      let content: string | null = null;
+      let contentBase: string | null = null;
+      for (const b of branches) {
+        try {
+          const url = `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${b}/README.md`;
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const text = await res.text();
+          content = text;
+          contentBase = `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${b}/`;
+          break;
+        } catch (e) {
+          // try next branch
+          continue;
+        }
+      }
+      if (canceled) return;
+      if (content) {
+        // Rewrite relative image and link URLs so they point to the raw GitHub content
+        if (contentBase) {
+          // HTML <img src="..."> and <a href="...">
+          content = content.replace(
+            /(<img[^>]+src=["'])(?!https?:\/\/)([^"'>]+)(["'])/gi,
+            (m, p1, p2, p3) => {
+              return `${p1}${contentBase}${p2}${p3}`;
+            },
+          );
+          content = content.replace(
+            /(<a[^>]+href=["'])(?!https?:\/\/|mailto:|#)([^"'>]+)(["'])/gi,
+            (m, p1, p2, p3) => {
+              return `${p1}${contentBase}${p2}${p3}`;
+            },
+          );
+          // Markdown image: ![alt](path)
+          content = content.replace(
+            /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
+            (m, p1, p2) => {
+              return `![${p1}](${contentBase}${p2})`;
+            },
+          );
+          // Markdown links: [text](path)
+          content = content.replace(
+            /\[([^\]]+)\]\((?!https?:\/\/|#)([^)]+)\)/g,
+            (m, p1, p2) => {
+              return `[${p1}](${contentBase}${p2})`;
+            },
+          );
+        }
+        setReadme(content);
+      } else setReadmeError("README not found");
+      setReadmeLoading(false);
+    };
+    fetchReadme();
+    return () => {
+      canceled = true;
+    };
+  }, [post]);
   if (!post) {
     return (
       <div
@@ -74,7 +154,7 @@ export default function BlogPost() {
               className={`${bgCodeColor} p-4 rounded overflow-auto mb-4`}
             >
               <code className={subtleColor}>{codeBlockLines.join("\n")}</code>
-            </pre>
+            </pre>,
           );
           codeBlockLines = [];
         }
@@ -90,19 +170,19 @@ export default function BlogPost() {
         elements.push(
           <h1 key={idx} className={`text-4xl font-bold mt-8 mb-4 ${textColor}`}>
             {line.slice(2)}
-          </h1>
+          </h1>,
         );
       } else if (line.startsWith("## ") && !line.startsWith("### ")) {
         elements.push(
           <h2 key={idx} className={`text-3xl font-bold mt-6 mb-3 ${textColor}`}>
             {line.slice(3)}
-          </h2>
+          </h2>,
         );
       } else if (line.startsWith("### ")) {
         elements.push(
           <h3 key={idx} className={`text-2xl font-bold mt-5 mb-2 ${textColor}`}>
             {line.slice(4)}
-          </h3>
+          </h3>,
         );
       } else if (line.includes("**")) {
         const parts = line.split("**");
@@ -113,12 +193,12 @@ export default function BlogPost() {
             </strong>
           ) : (
             part
-          )
+          ),
         );
         elements.push(
           <p key={idx} className={`mb-3 ${subtleColor}`}>
             {rendered}
-          </p>
+          </p>,
         );
       } else if (line.includes("[") && line.includes("](")) {
         const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -137,7 +217,7 @@ export default function BlogPost() {
               className={`${accentColor} hover:underline`}
             >
               {match[1]}
-            </a>
+            </a>,
           );
           lastIndex = linkRegex.lastIndex;
         }
@@ -145,13 +225,13 @@ export default function BlogPost() {
         elements.push(
           <p key={idx} className={`mb-3 ${subtleColor}`}>
             {parts}
-          </p>
+          </p>,
         );
       } else if (line.startsWith("- ")) {
         elements.push(
           <li key={idx} className={`ml-6 mb-2 ${subtleColor} list-disc`}>
             {line.slice(2)}
-          </li>
+          </li>,
         );
       } else if (line.trim() === "") {
         elements.push(<br key={idx} />);
@@ -159,7 +239,7 @@ export default function BlogPost() {
         elements.push(
           <p key={idx} className={`mb-3 ${subtleColor}`}>
             {line}
-          </p>
+          </p>,
         );
       }
     });
@@ -232,6 +312,28 @@ export default function BlogPost() {
           <div className="text-lg leading-relaxed">
             {renderContent(post.content)}
           </div>
+
+          {post.github && (
+            <section className="mt-8">
+              <h2 className={`text-2xl font-bold mb-4 ${textColor}`}>
+                Repository README
+              </h2>
+              {readmeLoading && <p className={subtleColor}>Loading README…</p>}
+              {readmeError && (
+                <p className={`${subtleColor} text-red-500`}>{readmeError}</p>
+              )}
+              {readme && (
+                <div className={`${subtleColor} prose`}>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {readme}
+                  </ReactMarkdown>
+                </div>
+              )}
+            </section>
+          )}
 
           {post.images && post.images.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
