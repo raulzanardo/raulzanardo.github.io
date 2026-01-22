@@ -2,7 +2,7 @@
   "name": "raulzanardo.github.io",
   "private": false,
   "type": "module",
-  "homepage": "https://raulzanardo.github.io/",
+  "homepage": "./",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
