@@ -43,7 +43,7 @@ export default function Music() {
 
               <div className="mt-3 space-y-2">
                 <div className="flex gap-4 items-start">
-                  <div className="w-36 flex-shrink-0">
+                  <div className="w-36 shrink-0">
                     <img
                       src="https://f4.bcbits.com/img/a2590122054_10.jpg"
                       alt="Fresta cover"
@@ -106,7 +106,7 @@ export default function Music() {
                 <p className={subtleColor}>Notable releases:</p>
 
                 <div className="flex gap-4 items-start mt-2">
-                  <div className="w-32 flex-shrink-0">
+                  <div className="w-32 shrink-0">
                     <a
                       href="https://dumbrothers.bandcamp.com/album/pt-1"
                       target="_blank"
@@ -129,7 +129,7 @@ export default function Music() {
                     </a>
                   </div>
 
-                  <div className="w-32 flex-shrink-0">
+                  <div className="w-32 shrink-0">
                     <a
                       href="https://dumbrothers.bandcamp.com/album/pt-2"
                       target="_blank"
