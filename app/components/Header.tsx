@@ -69,9 +69,10 @@ export default function Header({
         isDark ? "bg-surface-dark" : "bg-gray-200"
       } shadow-md`}
     >
-      <div className="mx-auto px-4">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
-          <div className="flex space-x-1">
+          <div className="flex space-x-1 overflow-x-auto">
+            {/* allow horizontal scroll for tabs on very small screens */}
             {tabs.map((tab, index) => (
               <button
                 key={tab}
