@@ -29,7 +29,6 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Meta />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Links />
       {children}
