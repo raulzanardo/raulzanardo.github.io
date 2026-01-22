@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router";
+import { Sun, Moon } from "lucide-react";
 
 export default function Header({
   isDark,
@@ -15,61 +16,13 @@ export default function Header({
 
   const activeTab = paths.indexOf(location.pathname);
 
-  const Sun = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="black">
-      <circle cx="12" cy="12" r="5" />
-      <line x1="12" y1="1" x2="12" y2="3" stroke="black" strokeWidth="2" />
-      <line x1="12" y1="21" x2="12" y2="23" stroke="black" strokeWidth="2" />
-      <line
-        x1="4.22"
-        y1="4.22"
-        x2="5.64"
-        y2="5.64"
-        stroke="black"
-        strokeWidth="2"
-      />
-      <line
-        x1="18.36"
-        y1="18.36"
-        x2="19.78"
-        y2="19.78"
-        stroke="black"
-        strokeWidth="2"
-      />
-      <line x1="1" y1="12" x2="3" y2="12" stroke="black" strokeWidth="2" />
-      <line x1="21" y1="12" x2="23" y2="12" stroke="black" strokeWidth="2" />
-      <line
-        x1="4.22"
-        y1="19.78"
-        x2="5.64"
-        y2="18.36"
-        stroke="black"
-        strokeWidth="2"
-      />
-      <line
-        x1="18.36"
-        y1="5.64"
-        x2="19.78"
-        y2="4.22"
-        stroke="black"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-
-  const Moon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </svg>
-  );
-
   return (
     <div
       className={`sticky top-0 z-50 ${
         isDark ? "bg-surface-dark" : "bg-gray-200"
       } shadow-md`}
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <div className="flex space-x-1 overflow-x-auto">
             {/* allow horizontal scroll for tabs on very small screens */}
@@ -113,7 +66,11 @@ export default function Header({
                 e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
-              {isDark ? <Moon /> : <Sun />}
+              {isDark ? (
+                <Moon size={20} className="text-white" fill="white" />
+              ) : (
+                <Sun size={20} className="text-black" fill="black" />
+              )}
             </button>
           </div>
         </div>
