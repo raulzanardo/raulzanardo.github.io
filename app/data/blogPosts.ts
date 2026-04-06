@@ -23,7 +23,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-04-02",
     excerpt:
       "PICO-8 inspired photo gallery that turns a folder of camera exports into a retro pixel-art UI with a keyboard-friendly lightbox.",
-    image: null,
+    image:
+      "http://raw.githubusercontent.com/raulzanardo/bit-gallery/refs/heads/master/images/gallery.png",
     images: [],
     tags: ["React", "TypeScript", "Gallery", "Pixel Art", "Retro", "Web"],
     github: "https://github.com/raulzanardo/bit-gallery",
