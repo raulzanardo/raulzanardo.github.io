@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router";
 import type { Route } from "./+types/home";
 import type { ThemeContext } from "../types/context";
 import Header from "../components/Header";
+import { Mail, Github, Linkedin } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -85,8 +86,9 @@ export default function Home() {
                 <p className={subtleColor}>
                   <a
                     href="mailto:raulzanardo@gmail.com"
-                    className={`${linkColor} hover:underline`}
+                    className={`${linkColor} hover:underline inline-flex items-center gap-2`}
                   >
+                    <Mail size={16} />
                     raulzanardo@gmail.com
                   </a>
                 </p>
@@ -95,8 +97,9 @@ export default function Home() {
                     href="https://github.com/raulzanardo"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${linkColor} hover:underline`}
+                    className={`${linkColor} hover:underline inline-flex items-center gap-2`}
                   >
+                    <Github size={16} />
                     github.com/raulzanardo
                   </a>
                 </p>
@@ -105,8 +108,9 @@ export default function Home() {
                     href="https://www.linkedin.com/in/raulzanardo/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${linkColor} hover:underline`}
+                    className={`${linkColor} hover:underline inline-flex items-center gap-2`}
                   >
+                    <Linkedin size={16} />
                     linkedin.com/in/raulzanardo
                   </a>
                 </p>

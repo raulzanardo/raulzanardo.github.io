@@ -17,6 +17,20 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "bit-gallery",
+    slug: "bit-gallery",
+    title: "BIT GALLERY — Retro Pixel Photo Gallery",
+    date: "2026-04-02",
+    excerpt:
+      "PICO-8 inspired photo gallery that turns a folder of camera exports into a retro pixel-art UI with a keyboard-friendly lightbox.",
+    image: null,
+    images: [],
+    tags: ["React", "TypeScript", "Gallery", "Pixel Art", "Retro", "Web"],
+    github: "https://github.com/raulzanardo/bit-gallery",
+    content:
+      "BIT GALLERY is a retro pixel photo gallery built with React Router 7 and TypeScript. It transforms a folder of camera exports (especially from the lilygo-pixel-camera project) into a PICO-8 inspired gallery UI with a sharp grid, CRT-like status bars, and a keyboard-friendly lightbox. Navigation supports `A`/`D` or arrow keys inside the lightbox and mobile swipe gestures. Files are auto-discovered from `public/photos` and sorted by number in filename. The app is Docker-ready and automatically deployed to GitHub Pages via GitHub Actions. Future plans include drag-and-drop uploads, EXIF sorting, favorites, and slideshow mode.",
+  },
+  {
     id: "rpi-spotify-matrix-display-big",
     slug: "rpi-spotify-matrix-display-big",
     title: "Raspberry Pi Spotify Matrix Display",
